@@ -1,0 +1,322 @@
+{% from "macro.html" import data_table %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/styles.css"/>
+<meta name="viewport" content="width=device-width, initial-scale=0.7">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+const clg0=["모든 학과"],
+clg1=["모든 학과","국어국문학과","사학과","철학과","응용영어통번역학과","영어영문학과"],
+clg2=["모든 학과","법학부"],
+clg3=["모든 학과","국제통상·금융투자학과","국제통상·금융투자학과","경제학과","무역학과","정치외교학과","사회학과","미디어학과","행정학과"],
+clg4=["모든 학과","경영학부","회계·세무학과","경영학과"],
+clg5=["모든 학과","관광학부","Hospitality경영학부","Hospitality경영학부 호텔경영학과","문화관광산업학과","조리산업학과","Hospitality경영학부 컨벤션경영학과","외식경영학과","Hospitality경영학부 조리·서비스경영학과","관광학부 문화관광콘텐츠학과","관광학부 관광학과"],
+clg6=["모든 학과","생물학과","화학과","물리학과","수학과","정보디스플레이학과","지리학과"],
+clg7=["모든 학과","식품영양학과","의상학과","아동가족학과","주거환경학과"],
+clg8=["모든 학과","의학과","의예과"],
+clg9=["모든 학과","한의예과","한의학과"],
+clg10=["모든 학과","치의학과","치의예과"],
+clg11=["모든 학과","한약학과","약과학과","약학과"],
+clg12=["모든 학과","간호학과","간호학과(야)"],
+clg13=["모든 학과","작곡과","성악과","기악과"],
+clg14=["모든 학과","미술학부","미술학부 한국화","미술학부 회화","미술학부 조소"],
+clg15=["모든 학과","무용학부","무용학부 한국무용","무용학부 현대무용","무용학부 발레"],
+clg16=["모든 학과","자율전공학과"],
+clg17=["모든 학과","환경학및환경공학과","건축공학과","기계공학과","사회기반시스템공학과","화학공학과","건축학과","산업경영공학과","정보전자신소재공학과","원자력공학과"],
+clg18=["모든 학과","전자공학과","생체의공학과"],
+clg19=["모든 학과","소프트웨어융합학과","컴퓨터공학과"],
+clg20=["모든 학과","우주과학과","응용화학과","응용물리학과","응용수학과"],
+clg21=["모든 학과","식물·환경신소재공학과","원예생명공학과","식품생명공학과","한방생명공학과","유전생명공학과"],
+clg22=["모든 학과","글로벌한국학과","국제학과"],
+clg23=["모든 학과","글로벌커뮤니케이션학부","글로벌커뮤니케이션학부 영미어문","한국어학과","일본어학과","중국어학과","러시아어학과","스페인어학과","프랑스어학과","글로벌커뮤니케이션학부 영미문화"],
+clg24=["모든 학과","도예학과","Post Modern음학학과","연극영화학과","산업디자인학과","환경조경디자인학과","의류디자인학과","디지털콘텐츠학과","시각디자인학과"],
+clg25=["모든 학과","태권도학과","체육학과","스포츠의학과","스포츠지도학과","골프산업학과"]
+
+const clgs={"모든 단과대학":clg0,
+      "문과대학":clg1,
+      "법과대학":clg2,
+      "정경대학":clg3,
+      "경영대학":clg4,
+      "호텔관광대학":clg5,
+      "이과대학":clg6,
+      "생활과학대학":clg7,
+      "의과대학":clg8,
+      "한의과대학":clg9,
+      "치과대학":clg10,
+      "약학대학":clg11,
+      "간호과학대학":clg12,
+      "음악대학":clg13,
+      "미술대학":clg14,
+      "무용학부":clg15,
+      "자율전공학과":clg16,
+      "공과대학":clg17,
+      "전자정보대학":clg18,
+      "소프트웨어융합대학":clg19,
+      "응용과학대학":clg20,
+      "생명과학대학":clg21,
+      "국제대학":clg22,
+      "외국어대학":clg23,
+      "예술디자인대학":clg24,
+      "체육대학":clg25}
+
+window.onload = function() {
+  var college = document.getElementById("college");
+  var department = document.getElementById("department");
+  for (var x in clgs) {
+    college.options[college.options.length] = new Option(x, x);
+  }
+  college.onchange = function() {
+    department.length = 1;
+    for (var y in clgs[this.value]) {
+        val=clgs[this.value][y]
+        department.options[department.options.length] = new Option(val, val);
+    }
+    }
+
+}
+
+function checkvalidation(){
+  var college=document.getElementById("college");
+  console.log(typeof(college));
+  var department=document.getElementById("department");
+  console.log(department);
+  var country=$('input:checkbox[name="country"]:checked')
+  console.log(country);
+  if (college.value=="default" || department.value=="default" || country.length==0){
+    alert("모든 항목을 입력해주세요");
+  }
+}
+
+$(document).ready(function() {
+  var Asia_=$("#Asia");
+  var Europe_=$("#Europe");
+  var Northern_America_=$("#Northern_America");
+  var Southern_America_=$("#Southern_America");
+  var Africa_=$("#Africa");
+  var Mid_Eastern_=$("#Mid_Eastern");
+  var Oceania_=$("#Oceania");
+  var continent_selectors=[Asia_,Europe_,Northern_America_,Southern_America_,Africa_,Mid_Eastern_,Oceania_];
+    
+  /*
+  $("#All-continent").click(function(){
+      
+      if (this.checked){
+        console.log("all checked")
+        continent_selectors.forEach(function(item){
+          if (item.is(':checked')){
+            var container_selector="#"+item.attr('id')+"_container";
+            $(container_selector).remove();
+          }
+          console.log("**********************");
+          //item.prop({'checked':true,'disabled':true})
+          item.attr({'disabled':true,'checked':true});
+        })
+      }
+      else{
+        continent_selectors.forEach(function(item){
+          //item.prop({'checked':false,'disabled':false})
+          item.attr({'checked':false,'disabled':false});
+        })
+      }
+    })*/
+    
+    Asia_.click(function(){
+    if (this.checked){
+      console.log("Asia checked")
+      $('#container').append("<span id=\"Asia_container\"></span>")
+      $('#Asia_container').append('<h3>아시아 국가선택</h3>')
+      a=JSON.parse('{{continents.get("Asia")|tojson}}');
+        for (var value of a) {
+          $('#Asia_container')
+            .append(`<span><input type="checkbox" id="${value}" name="country" value="${value}"><label for="${value}">${value}</label></span>`)
+  
+        }
+    }
+    else{
+      $('#Asia_container').remove();
+    }
+    })
+
+   Europe_.click(function(){
+    if (this.checked){
+      console.log("Europe checked")
+      $('#container').append("<span id=\"Europe_container\"></span>")
+      $('#Europe_container').append('<h3>유럽 국가선택</h3>')
+      a=JSON.parse('{{continents.get("Europe")|tojson}}');
+        for (var value of a) {
+          $('#Europe_container')
+            .append(`<input type="checkbox" id="${value}" name="country" value="${value}">`)
+            .append(`<label for="${value}">${value}</label></span>`)
+        }
+    }
+    else{
+      $('#Europe_container').remove();
+    }
+    })
+
+    Northern_America_.click(function(){
+    if (this.checked){
+      console.log("Northern America checked")
+      $('#container').append("<span id=\"Northern_America_container\"></span>")
+      $('#Northern_America_container').append('<h3>북아메리카 국가선택</h3>')
+      a=JSON.parse('{{continents.get("Northern America")|tojson}}');
+        for (var value of a) {
+          $('#Northern_America_container')
+            .append(`<input type="checkbox" id="${value}" name="country" value="${value}">`)
+            .append(`<label for="${value}">${value}</label></span>`)
+        }
+    }
+    else{
+      $('#Northern_America_container').remove();
+    }
+    })
+
+    Southern_America_.click(function(){
+    if (this.checked){
+      console.log("Southern_America checked")
+      $('#container').append("<span id=\"Southern_America_container\"></span>")
+      $('#Southern_America_container').append('<h3>남아메리카 국가선택</h3>')
+      a=JSON.parse('{{continents.get("Southern America")|tojson}}');
+        for (var value of a) {
+          $('#Southern_America_container')
+            .append(`<input type="checkbox" id="${value}" name="country" value="${value}">`)
+            .append(`<label for="${value}">${value}</label></span>`)
+        }
+    }
+    else{
+      $('#Southern_America_container').remove();
+    }
+    })
+  
+    Africa_.click(function(){
+    if (this.checked){
+      console.log("Africa checked")
+      $('#container').append("<span id=\"Africa_container\"></span>")
+      $("#Africa_container").append('<h3>아프리카 국가선택</h3>')
+      a=JSON.parse('{{continents.get("Africa")|tojson}}');
+        for (var value of a) {
+          $('#Africa_container')
+            .append(`<input type="checkbox" id="${value}" name="country" value="${value}">`)
+            .append(`<label for="${value}">${value}</label></span>`)
+        }
+    }
+    else{
+      $('#Africa_container').remove();
+    }
+    })
+   Mid_Eastern_.click(function(){
+    if (this.checked){
+      console.log("Mid_Eastern checked")
+      $('#container').append("<span id=\"Mid_Eastern_container\"></span>")
+      $("#Mid_Eastern_container").append('<h3>중동 국가선택</h3>')
+      a=JSON.parse('{{continents.get("Mid Eastern")|tojson}}');
+        for (var value of a) {
+          $('#Mid_Eastern_container')
+            .append(`<input type="checkbox" id="${value}" name="country" value="${value}">`)
+            .append(`<label for="${value}">${value}</label></span>`)
+        }
+    }
+    else{
+      $('#Mid_Eastern_container').remove();
+    }
+    
+
+    });
+  Oceania_.click(function(){
+    if (this.checked){
+      console.log("Oceania checked")
+      $('#container').append("<span id=\"Oceania_container\"></span>")
+      $('#Oceania_container').append('<h3>오세아니아 국가선택</h3>')
+      a=JSON.parse('{{continents.get("Oceania")|tojson}}');
+        for (var value of a) {
+          $('#Oceania_container')
+            .append(`<input type="checkbox" id="${value}" name="country" value="${value}">`)
+            .append(`<label for="${value}">${value}</label></span>`)
+        }
+    }
+    else{
+      $('#Oceania_container').remove();
+    }
+    })
+
+  if ('{{slctd_clg}}'!="None" && {{popular_list|length}}>1){
+    var cntry_str="";
+    $('#result').append('<span class=\"result-guide-clg\">{{slctd_clg}}</span>');
+    $('#result').append('<span class=\"result-guide-dptmt\"> {{slctd_dptmt}}</span>');
+    $('#result').append('<span class=\"result-guide\">의</span>');
+
+    {% for c in slctd_cntry %}
+      cntry_str=cntry_str.concat('{{c}}, ');
+    {% endfor %}
+    cntry_str=cntry_str.substr(0,cntry_str.length-2);
+    console.log("##############");
+    console.log(cntry_str);
+    $("#result").append(`<span class=\"result-guide-cntry\"> ${cntry_str}</span>`);
+    $('#result').append('<span class=\"result-guide\">(으)로 교환학생 파견</span>');
+    $('#result').append(``);
+
+    $('#popular').append(`<span class="popular-result">
+    {{slctd_clg}} 학생들에게 인기 많은 대륙은 <span id="popular-continent">{{popular_list[0]}}</span>이고,<br>
+    인기 많은 국가는 <span id='popular-cntry'>< 1위: {{popular_list[1]}}, 2위: {{popular_list[2]}}, 3위: {{popular_list[3]}} ></span>입니다.</span>`);
+
+};})
+
+</script>
+</head>
+<body>
+  <form action="/dashboard" method="get">
+  <button class="btn btn-info" type="submit"  >go to dashboard</button>
+</form>
+  <br>
+<h1 id="h1-title" style="text-align:center" >교환학생 수기 검색</h1>
+
+<form name="form1" id="form1" action="/" method="POST">
+  <span class="clg">단과대학: <select data-style="btn-inverse" name="college" id="college">
+    <option value="default" selected="selected">Select college</option>
+  </select></span>
+<span class="dptmt">학과: <select name="department" id="department">
+    <option value="default" selected="selected">Select department</option>
+  </select></span>
+
+  <br><br><br>
+  <h5 id="continent-select">대륙 선택</h5>
+
+  <!--
+  <input type="checkbox" id="All-continent" name="All-continent" value="All-continent"> 
+  <label for="All-continent"> 전체</label><br><br><br>-->
+  <input type="checkbox" id="Asia" name="Asia" value="Asia"> 
+  <label for="Asia"> 아시아</label>
+  <input type="checkbox" id="Europe" name="Europe" value="Europe"> 
+  <label for="Europe"> 유럽</label>
+  <input type="checkbox" id="Northern_America" name="Northern_America" value="Northern_America"> 
+  <label for="Northern_America"> 북아메리카</label>
+  <input type="checkbox" id="Southern_America" name="Southern_America" value="Southern_America"> 
+  <label for="Southern_America"> 남아메리카</label>
+  <input type="checkbox" id="Africa" name="Africa" value="Africa"> 
+  <label for="Africa"> 아프리카</label>
+  <input type="checkbox" id="Mid_Eastern" name="Mid_Eastern" value="Mid_Eastern"> 
+  <label for="Mid_Eastern"> 중동</label>
+  <input type="checkbox" id="Oceania" name="Oceania" value="Oceania"> 
+  <label for="Oceania"> 오세아니아</label><br>
+  <span id="container"></span>
+
+  <br>
+  <input class="btn btn" onclick="checkvalidation()" type="submit" value="Submit">
+</form>
+  <br><br><br>
+<div id="popular">
+  </div>
+  <br><br><br>
+<span id="result">
+</span>
+<div class="\result-number\">총 <span id="num-length">{{data|length}}</span>개의 결과</div>
+<br><br><br>
+
+{{ data_table(headings, data)}}
+<br><br><br><br><br>
+</body>
+</html>

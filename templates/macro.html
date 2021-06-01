@@ -1,0 +1,28 @@
+{% macro heading_row(headings) %}
+    <tr class="table-header">
+        {% for header in headings %}
+            <th class="table-cell">{{header}}</th>
+        {% endfor %}
+    </tr>
+{% endmacro %}
+
+{% macro data_rows(data) %}
+    {% for row in data %}
+        <tr class="table-row">
+            {% for cell in row %}
+                {% if cell.startswith("http") %}
+                    <td class="table-cell"> <a href="{{cell}}" target="_blank">보고서</a></td>
+                {% else %}
+                    <td class="table-cell">{{cell}}</td>
+                {% endif %}
+            {% endfor %}
+        </tr>
+    {% endfor %}
+{% endmacro %}
+
+{% macro data_table(headings,data) %}
+    <table class="table">
+        {{ heading_row(headings )}}
+        {{ data_rows(data)  }}
+    </table>
+{% endmacro %}
